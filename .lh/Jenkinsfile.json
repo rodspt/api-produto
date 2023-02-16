@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1676513610783,
@@ -72,6 +72,10 @@
                 {
                     "date": 1676520112801,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,12 @@\n pipeline { \n     agent any  \n \n-    environment {\n-      buildVersion =    ${env.BUILD_ID}\n-      registryCredential = 'rodspt'\n-    }\n-\n     stages { \n         stage ('Build Image') { \n             steps { \n                 script {\n-                   dockerapp = docker.build(\"rodspt/sigabc-backend:${buildVersion}\", '-f ./src/Dockerfile ./src') \n+                   dockerapp = docker.build(\"rodspt/sigabc-backend:${env.BUILD_ID}\", '-f ./src/Dockerfile ./src') \n                 }                \n             }\n         }\n \n@@ -19,11 +14,11 @@\n         stage ('Push Image') {\n             steps {\n                 script {\n                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){\n-                        dockerapp.withRegistry('', registryCredential)\n+                        dockerapp.withRegistry('', 'rodspt')\n                         dockerapp.push('latest')\n-                        dockerapp.push(${buildVersion})\n+                        dockerapp.push(${env.BUILD_ID})\n                     }\n                 }\n             }    \n         }\n"
+                },
+                {
+                    "date": 1676520231650,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,9 @@\n \n         stage ('Push Image') {\n             steps {\n                 script {\n-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){\n-                        dockerapp.withRegistry('', 'rodspt')\n+                    docker.withRegistry('https://registry.hub.docker.com', 'rodspt'){\n                         dockerapp.push('latest')\n                         dockerapp.push(${env.BUILD_ID})\n                     }\n                 }\n"
                 }
             ],
             "date": 1676513610783,
