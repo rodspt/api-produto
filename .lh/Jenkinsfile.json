@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 21,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1676513610783,
@@ -92,6 +92,10 @@
                 {
                     "date": 1676522630036,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,13 +14,21 @@\n         stage ('Push Image') {\n             steps {\n                 script {\n                     docker.withRegistry('https://registry.hub.docker.com', 'rodspt'){\n+                        dockerapp.push(env.BUILD_ID)\n                         dockerapp.push('latest')\n-                        dockerapp.push(env.BUILD_ID)\n                     }\n                 }\n             }    \n         }\n \n+        stage ('Deploy Kubernetes') {\n+            steps {\n+                withKubeConfig([credentialsId: 'kubeconfig']) {\n+                    sh 'kubectl apply -f ./k8s/deployment.yaml'\n+                }\n+            }\n+        }\n+\n     }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1676523240020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,12 +21,15 @@\n                 }\n             }    \n         }\n \n-        stage ('Deploy Kubernetes') {\n+         stage ('Deploy Kubernetes') {\n+            environment {\n+                tag_version = \"${env.BUILD_ID}\"\n+            }\n             steps {\n                 withKubeConfig([credentialsId: 'kubeconfig']) {\n-                    sh 'kubectl apply -f ./k8s/deployment.yaml'\n+                     sh 'kubectl apply -f ./k8s/deployment.yaml'\n                 }\n             }\n         }\n \n"
                 }
             ],
             "date": 1676513610783,
