@@ -15,7 +15,6 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'rodspt'){
-                        dockerapp.push('latest')
                         dockerapp.push(${env.BUILD_ID})
                     }
                 }
