@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'rodspt'){
-                        dockerapp.push(${env.BUILD_ID})
+                        dockerapp.push(env.BUILD_ID)
                     }
                 }
             }    

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 18,
+            "activePatchIndex": 19,
             "patches": [
                 {
                     "date": 1676513610783,
@@ -80,6 +80,10 @@
                 {
                     "date": 1676520504741,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,8 @@\n         stage ('Push Image') {\n             steps {\n                 script {\n                     docker.withRegistry('https://registry.hub.docker.com', 'rodspt'){\n-                        dockerapp.push('latest')\n                         dockerapp.push(${env.BUILD_ID})\n                     }\n                 }\n             }    \n"
+                },
+                {
+                    "date": 1676520596200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         stage ('Push Image') {\n             steps {\n                 script {\n                     docker.withRegistry('https://registry.hub.docker.com', 'rodspt'){\n-                        dockerapp.push(${env.BUILD_ID})\n+                        dockerapp.push(env.BUILD_ID)\n                     }\n                 }\n             }    \n         }\n"
                 }
             ],
             "date": 1676513610783,
