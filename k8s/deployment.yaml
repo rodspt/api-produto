@@ -55,6 +55,7 @@ spec:
       containers:
         - name: api
           image: rodspt/sigabc-backend:{{tag}}
+          #image: rodspt/sigabc-backend
           ports: 
           - containerPort: 8080
           env: 
