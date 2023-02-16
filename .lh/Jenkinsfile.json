@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1676513610783,
@@ -32,6 +32,10 @@
                 {
                     "date": 1676516727557,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n     stages { \n         stage ('Build Image') { \n             steps { \n                 script {\n-                   dockerapp = docker.build(\"rodspt/api-produto:${env.BUILD_ID}\", '-f ./src/Dockerfile ./src') \n+                   dockerapp = docker.build(\"rodspt/api-produto:lasted\", '-f ./src/Dockerfile ./src') \n                 }                \n             }\n         }\n \n"
+                },
+                {
+                    "date": 1676516956762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n     stages { \n         stage ('Build Image') { \n             steps { \n                 script {\n-                   dockerapp = docker.build(\"rodspt/api-produto:lasted\", '-f ./src/Dockerfile ./src') \n+                   dockerapp = docker.build(\"rodspt/api-produto:${env.BUILD_ID}\", '-f ./src/Dockerfile ./src') \n                 }                \n             }\n         }\n \n"
                 }
             ],
             "date": 1676513610783,
