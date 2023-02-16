@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 23,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1676513610783,
@@ -100,6 +100,10 @@
                 {
                     "date": 1676523703790,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n                 tag_version = \"${env.BUILD_ID}\"\n             }\n             steps {\n                 withKubeConfig([credentialsId: 'kubeconfig']) {\n-                     sh 'kubectl apply -f ./k8s/deployment.yaml'\n+                     sh '/usr/local/bin/kubectl apply -f ./k8s/deployment.yaml'\n                 }\n             }\n         }\n \n"
+                },
+                {
+                    "date": 1676524308110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,8 +27,9 @@\n                 tag_version = \"${env.BUILD_ID}\"\n             }\n             steps {\n                 withKubeConfig([credentialsId: 'kubeconfig']) {\n+                     sh 'sed -i \"s/{{tag}}/$tag_version/g\" ./k8s/deployment.yaml'\n                      sh '/usr/local/bin/kubectl apply -f ./k8s/deployment.yaml'\n                 }\n             }\n         }\n"
                 }
             ],
             "date": 1676513610783,
