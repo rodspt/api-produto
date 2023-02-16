@@ -2,7 +2,7 @@ pipeline {
     agent any  
 
     environment {
-      buildVersion =    env.BUILD_ID
+      buildVersion =    ${env.BUILD_ID}
       registryCredential = 'rodspt'
     }
 

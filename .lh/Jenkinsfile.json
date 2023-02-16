@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1676513610783,
@@ -64,6 +64,10 @@
                 {
                     "date": 1676519993023,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n             }\n         }\n \n \n-        tag ('Push Image') {\n+        stage ('Push Image') {\n             steps {\n                 script {\n                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){\n                         dockerapp.withRegistry('', registryCredential)\n"
+                },
+                {
+                    "date": 1676520035930,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n pipeline { \n     agent any  \n \n     environment {\n-      buildVersion =    env.BUILD_ID\n+      buildVersion =    ${env.BUILD_ID}\n       registryCredential = 'rodspt'\n     }\n \n     stages { \n"
                 }
             ],
             "date": 1676513610783,
