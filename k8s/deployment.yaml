@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: rodspt/api-produto:{{tag}}
+          image: rodspt/sigabc-backend:{{tag}}
           ports: 
           - containerPort: 8080
           env: 
