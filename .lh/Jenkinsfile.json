@@ -1,0 +1,18 @@
+{
+    "sourceFile": "Jenkinsfile",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1676513610783,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1676513610783,
+            "name": "Commit-0",
+            "content": "pipeline { \n    agent any  \n\n    stages { \n        stage ('Build Image') { \n            steps { \n                script {\n                    dockerapp = docker.build(\"rodspt/api-produto:${env.BUILD_ID}\", '-f ./src/Dockerfile ./src') \n                }                \n            }\n        }\n\n        stage ('Push Image') {\n            steps {\n                script {\n                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {\n                        dockerapp.push('latest')\n                        dockerapp.push(\"${env.BUILD_ID}\")\n                    }\n                }\n            }\n        }\n\n        stage ('Deploy Kubernetes') {\n            environment {\n                tag_version = \"${env.BUILD_ID}\"\n            }\n            steps {\n                withKubeConfig([credentialsId: 'kubeconfig']) {\n                    sh 'sed -i \"s/{{tag}}/$tag_version/g\" ./k8s/deployment.yaml'\n                    sh 'kubectl apply -f ./k8s/deployment.yaml'\n                }\n            }\n        }\n    }\n}"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "k8s/deployment.yaml",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1676513610783,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1676513610783,
+            "name": "Commit-0",
+            "content": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: mongodb\nspec:\n  selector:\n    matchLabels:\n      app: mongodb\n  template:\n    metadata:\n      labels:\n        app: mongodb\n    spec:\n      containers:\n        - name: mongodb\n          image: mongo:4.4.5\n          ports:\n            - containerPort: 27017\n          env:\n            - name: MONGO_INITDB_ROOT_USERNAME\n              value: mongouser\n            - name: MONGO_INITDB_ROOT_PASSWORD\n              value: mongopwd         \n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: mongodb-service\nspec:\n  selector:\n    app: mongodb\n  ports:\n    - port: 27017\n      targetPort: 27017\n  type: ClusterIP\n---\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: api\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: api\n  template:\n    metadata:  \n      annotations:\n        prometheus.io/scrape: \"true\"\n        prometheus.io/path: /metrics\n        prometheus.io/port: \"8080\"        \n      labels:\n        app: api\n    spec:\n      containers:\n        - name: api\n          image: rodspt/api-produto:{{tag}}\n          ports: \n          - containerPort: 8080\n          env: \n          - name: MONGODB_URI\n            value: mongodb://mongouser:mongopwd@mongodb-service:27017/admin\n--- \napiVersion: v1\nkind: Service\nmetadata:\n  name: api-service\nspec:\n  selector:\n    app: api\n  ports:\n    - port: 80\n      targetPort: 8080   \n      nodePort: 30000   \n  type: LoadBalancer\n\n"
+        }
+    ]
+}
